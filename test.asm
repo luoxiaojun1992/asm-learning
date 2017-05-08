@@ -24,6 +24,7 @@ section .bss
 ;程序代码
 section .text  
 
+;比较相等
 correct:
     mov rax, sys_write
     mov rdi, stdout
@@ -32,6 +33,7 @@ correct:
     syscall
     jmp l1
 
+;比较不等
 fail:
     mov rax, sys_write
     mov rdi, stdout
