@@ -12,6 +12,7 @@ section .bss
 section .text  
   
 _start:  
+l1:
     mov rax, 0x2000004         ; syscall需要用到的参数，表示write  
     mov rdi, 1                 ; 表示stdout  
     mov rsi, query_string      ; syscall调用回到rsi来获取字符  
@@ -38,6 +39,8 @@ _start:
     mov rdx, 2                 ; 这里两个字节，因为第二个是回车   
     syscall  
   
+    loop l1
+
     ; 退出syscall  
     mov rax, 0x2000001         ; syscall需要用到的参数，表示退出syscall  
     mov rdi, 0  
