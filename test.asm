@@ -1,5 +1,6 @@
 global _start                           ; 定义入口函数  
-  
+ 
+;定义常量 
 section .data  
     query_string        :  db   "Enter a character:  "  
     query_string_len    :  equ  $ - query_string  
@@ -15,10 +16,12 @@ section .data
     sys_exit            :  equ   0x2000001
     stdin               :  equ   0
     stdout              :  equ   1
-  
+
+;定义变量  
 section .bss  
     in_char:            resw 4  
   
+;程序代码
 section .text  
 
 correct:
