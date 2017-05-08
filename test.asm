@@ -5,9 +5,9 @@ section .data
     query_string_len    :  equ  $ - query_string  
     out_string          :  db   "You have input:  "  
     out_string_len      :  equ  $ - out_string  
-    correct_string      :  db   "correct"
+    correct_string      :  db   "correct", 0xa ;0xa换行
     correct_string_len  :  equ  $ - correct_string
-    fail_string         :  db   "fail"
+    fail_string         :  db   "fail", 0xa ;0xa换行
     fail_string_len     :  equ  $ - fail_string
 
     sys_write           :  equ   0x2000004
