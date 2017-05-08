@@ -5,6 +5,11 @@ section .data
     query_string_len    :  equ  $ - query_string  
     out_string          :  db   "You have input:  "  
     out_string_len      :  equ  $ - out_string  
+    correct_string      :  db   "correct"
+    correct_string_len  :  equ  $ - correct_string
+    fail_string         :  db   "fail"
+    fail_string_len     :  equ  $ - fail_string
+
     sys_write           :  equ   0x2000004
     sys_read            :  equ   0x2000003
     sys_exit            :  equ   0x2000001
@@ -15,8 +20,28 @@ section .bss
     in_char:            resw 4  
   
 section .text  
-  
-_start:  
+
+correct:
+    mov rax, sys_write
+    mov rdi, stdout
+    mov rsi, correct_string
+    mov rdx, correct_string_len
+    syscall
+    jmp l1
+
+fail:
+    mov rax, sys_write
+    mov rdi, stdout
+    mov rsi, fail_string
+    mov rdx, fail_string_len
+    syscall
+    jmp l1
+
+_start:
+    mov rax, 1
+    cmp rax, 2
+    je correct
+    jne fail
 l1:
     mov rax, sys_write         ; syscall需要用到的参数，表示write  
     mov rdi, stdout           ; 表示stdout  
