@@ -1,14 +1,14 @@
 global _start                           ; 定义入口函数  
  
-;定义常量 
+; 定义常量 
 section .data  
     query_string        :  db   "Enter a character:  "  
     query_string_len    :  equ  $ - query_string  
     out_string          :  db   "You have input:  "  
     out_string_len      :  equ  $ - out_string  
-    correct_string      :  db   "correct", 0xa ;0xa换行
+    correct_string      :  db   "correct", 0xa ; 0xa换行
     correct_string_len  :  equ  $ - correct_string
-    fail_string         :  db   "fail", 0xa ;0xa换行
+    fail_string         :  db   "fail", 0xa ; 0xa换行
     fail_string_len     :  equ  $ - fail_string
 
     sys_write           :  equ   0x2000004
@@ -17,14 +17,14 @@ section .data
     stdin               :  equ   0
     stdout              :  equ   1
 
-;定义变量  
+; 定义变量  
 section .bss  
     in_char:            resw 4  
   
-;程序代码
+; 程序代码
 section .text  
 
-;比较相等
+; 比较相等
 correct:
     mov rax, sys_write
     mov rdi, stdout
@@ -33,7 +33,7 @@ correct:
     syscall
     jmp l1
 
-;比较不等
+; 比较不等
 fail:
     mov rax, sys_write
     mov rdi, stdout
@@ -41,6 +41,12 @@ fail:
     mov rdx, fail_string_len
     syscall
     jmp l1
+
+exit:
+    ; 退出syscall  
+    mov rax, sys_exit          ; syscall需要用到的参数，表示退出syscall  
+    mov rdi, stdin  
+    syscall
 
 _start:
     mov rax, 1
@@ -74,9 +80,8 @@ l1:
     mov rdx, 2                 ; 这里两个字节，因为第二个是回车   
     syscall  
   
+    ; 循环输入输出
     loop l1
 
-    ; 退出syscall  
-    mov rax, sys_exit          ; syscall需要用到的参数，表示退出syscall  
-    mov rdi, stdin  
-    syscall
+    ; 程序终止
+    jmp exit
