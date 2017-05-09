@@ -11,11 +11,11 @@ section .data
     stdout              :  equ   1
 
     x:
-	dw 1
-	dw 2
-	dw 3
+	db 1
+	db 2
+	db 3
 
-    sum: dw 0
+    sum: db 0
 
 section .bss
 
