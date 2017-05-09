@@ -55,7 +55,7 @@ _start:
     jne fail
 l1:
     mov rax, sys_write         ; syscall需要用到的参数，表示write  
-    mov rdi, stdout           ; 表示stdout  
+    mov rdi, stdout            ; 表示stdout  
     mov rsi, query_string      ; syscall调用回到rsi来获取字符  
     mov rdx, query_string_len  ; 并到rdx获取长度  
     syscall  
